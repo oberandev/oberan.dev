@@ -1,0 +1,41 @@
+steps:
+  - label: ":pipeline:"
+    command: buildkite-agent pipeline upload
+
+  - label: ":fsociety: Install Dependencies"
+    command: "scripts/install_deps.sh"
+    key: install-deps
+
+  - label: ":fsociety: Format"
+    command: "scripts/format_check.sh"
+    key: format-check
+    depends_on:
+      - install-deps
+
+  - label: ":fsociety: Lint"
+    command: "scripts/lint_check.sh"
+    key: lint-check
+    depends_on:
+      - install-deps
+
+  - label: ":test_tube: Unit Tests"
+    command: "scripts/unit_tests.sh"
+    if: "!build.pull_request.draft"
+    key: unit-tests
+    depends_on:
+      - format-check
+      - lint-check
+
+  - label: ":playwright: E2E Tests"
+    command: "scripts/e2e_tests.sh"
+    key: e2e-tests
+    depends_on:
+      - unit-tests
+
+  - label: ":fly-io: Deploy"
+    command: "scripts/deploy.sh"
+    branches: "main"
+    key: deploy
+    depends_on:
+      - unit-tests
+      - e2e-tests
