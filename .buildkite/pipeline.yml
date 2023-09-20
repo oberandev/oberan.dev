@@ -1,7 +1,4 @@
 steps:
-  - label: ":pipeline:"
-    command: buildkite-agent pipeline upload
-
   - label: ":fsociety: Install Dependencies"
     command: "scripts/install_deps.sh"
     key: install-deps
