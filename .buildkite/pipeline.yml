@@ -1,38 +1,24 @@
 steps:
-  - label: ":fsociety: Install Dependencies"
-    command: "scripts/install_deps.sh"
-    key: install-deps
+  - label: ":fsociety: Static Analysis"
+    commands:
+      - "scripts/install_deps.sh"
+      - "scripts/format_check.sh"
+      - "scripts/lint_check.sh"
+    key: static-analysis
 
-  - label: ":fsociety: Format"
-    command: "scripts/format_check.sh"
-    key: format-check
-    depends_on:
-      - install-deps
-
-  - label: ":fsociety: Lint"
-    command: "scripts/lint_check.sh"
-    key: lint-check
-    depends_on:
-      - install-deps
-
-  - label: ":test_tube: Unit Tests"
-    command: "scripts/unit_tests.sh"
+  - label: ":test_tube: Unit & E2E Tests"
+    commands:
+      - "scripts/install_deps.sh"
+      - "scripts/unit_tests.sh"
+      - "scripts/e2e_tests.sh"
     if: "!build.pull_request.draft"
-    key: unit-tests
+    key: tests
     depends_on:
-      - format-check
-      - lint-check
-
-  - label: ":playwright: E2E Tests"
-    command: "scripts/e2e_tests.sh"
-    key: e2e-tests
-    depends_on:
-      - unit-tests
+      - static-analysis
 
   - label: ":fly-io: Deploy"
     command: "scripts/deploy.sh"
     branches: "main"
     key: deploy
     depends_on:
-      - unit-tests
-      - e2e-tests
+      - tests
