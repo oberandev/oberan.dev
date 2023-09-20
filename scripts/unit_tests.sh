@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-nix-shell --run "make test"
+nix-shell --run "make test-ex"

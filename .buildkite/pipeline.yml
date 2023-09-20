@@ -5,6 +5,8 @@ steps:
       - "scripts/format_check.sh"
       - "scripts/lint_check.sh"
     key: static-analysis
+    agents:
+      nix: "true"
 
   - label: ":test_tube: Unit & E2E Tests"
     commands:
@@ -13,12 +15,17 @@ steps:
       - "scripts/e2e_tests.sh"
     if: "!build.pull_request.draft"
     key: tests
+    agents:
+      nix: "true"
     depends_on:
       - static-analysis
 
   - label: ":fly-io: Deploy"
     command: "scripts/deploy.sh"
     branches: "main"
-    key: deploy
+    concurrency: 1
+    concurrency_group: "oberan/deploy"
+    agents:
+      nix: "true"
     depends_on:
       - tests
