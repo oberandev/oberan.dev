@@ -90,4 +90,4 @@ lint-ex: ## Lint all Elixir files
 
 .PHONY: lint-js
 lint-js: ## Lint all Javascript files
-	cd assets && yarn lint
+	cd assets && yarn lint:check

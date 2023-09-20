@@ -8,8 +8,8 @@
   "scripts": {
     "format": "yarn prettier --write '**/*.{css,js,ts}'",
     "format:check": "yarn prettier --check '**/*.{css,js,ts}'",
-    "lint": "yarn eslint 'js/**/*.{js,ts}'",
-    "lint:fix": "yarn eslint 'js/**/*.{js,ts}' --fix"
+    "lint": "yarn eslint 'js/**/*.{js,ts}' --fix",
+    "lint:check": "yarn eslint 'js/**/*.{js,ts}'"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.0",
