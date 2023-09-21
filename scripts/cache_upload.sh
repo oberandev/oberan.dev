@@ -14,3 +14,4 @@ echo ":javascript: tarballs"
 cd assets
 tar -czf cache__node_modules.tar.gz node_modules
 buildkite-agent artifact upload cache__node_modules.tar.gz
+cd ..

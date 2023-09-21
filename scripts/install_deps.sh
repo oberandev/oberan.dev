@@ -8,4 +8,4 @@ echo ":elixir: Elixir deps"
 nix-shell --run "make deps-ex"
 
 echo ":yarn: Javascript deps"
-nix-shell --run "make deps-js"
+nix-shell --run "make deps-js && cd .."

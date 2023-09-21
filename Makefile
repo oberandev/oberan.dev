@@ -47,7 +47,7 @@ clean: ## Remove build artifacts
 
 .PHONY: deps-ex
 deps-ex: ## Install Elixir dependencies
-	mix deps.get --force
+	mix deps.get
 
 .PHONY: deps-js
 deps-js: ## Install Javascript dependencies
