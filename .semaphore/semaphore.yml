@@ -78,6 +78,8 @@ blocks:
           value: test
         - name: CI
           value: "true"
+      secrets:
+        - name: codecov
       prologue:
         commands:
           - checkout
