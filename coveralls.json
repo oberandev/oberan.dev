@@ -1,0 +1,11 @@
+{
+  "skip_files": [
+    "lib/finch_client.ex",
+    "lib/oberan.ex",
+    "lib/oberan_web/components/layouts.ex",
+    "lib/oberan_web/controllers/page_html.ex",
+    "lib/oberan_web/endpoint.ex",
+    "lib/oberan_web/gettext.ex",
+    "lib/oberan_web/telemetry.ex"
+  ]
+}

@@ -9,7 +9,14 @@ defmodule Oberan.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
+      ]
     ]
   end
 
@@ -34,6 +41,7 @@ defmodule Oberan.MixProject do
     [
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:esbuild, "~> 0.7", runtime: Mix.env() == :dev},
+      {:excoveralls, "~> 0.17.1", only: :test},
       {:finch, "~> 0.13"},
       {:floki, ">= 0.30.0", only: :test},
       {:gettext, "~> 0.20"},
