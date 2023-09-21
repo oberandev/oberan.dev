@@ -5,7 +5,7 @@ set -euo pipefail
 echo "--- Download artifacts from cache"
 
 echo ":nix: tarballs"
-buildkite-agent artifcat download cache__nix_mix.tar.gz .
+buildkite-agent artifact download cache__nix_mix.tar.gz .
 tar -xzf cache__nix_mix.tar.gz .nix-mix
 
 echo ":elixir: tarballs"
