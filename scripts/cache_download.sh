@@ -8,7 +8,7 @@ echo ":elixir: tarballs"
 buildkite-agent artifact download cache__build.tar.gz .
 buildkite-agent artifact download cache__deps.tar.gz .
 tar -xzvf cache__build.tar.gz _build
-tar -xzvf cache__deps_modules.tar.gz deps
+tar -xzvf cache__deps.tar.gz deps
 
 echo ":javascript: tarballs"
 cd assets
