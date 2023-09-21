@@ -78,6 +78,8 @@ blocks:
           value: test
         - name: CI
           value: "true"
+      secrets:
+        - name: codecov
       prologue:
         commands:
           - checkout
@@ -86,7 +88,10 @@ blocks:
           commands:
             - sem-version elixir 1.15
             - cache restore
-            - mix test
+            - curl -Os https://uploader.codecov.io/latest/linux/codecov
+            - chmod +x codecov
+            - mix coveralls
+            - ./codecov
 
   - name: "\U0001F52C E2E Tests"
     task:
