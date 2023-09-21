@@ -20,9 +20,28 @@ import "phoenix_html";
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
+import * as Sentry from "@sentry/browser";
 
 import topbar from "../vendor/topbar";
 import "./devs";
+
+Sentry.init({
+  dsn: "https://47470a77eacae7189d741ec70d78533f@o4505920220692480.ingest.sentry.io/4505920230326272",
+  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+
+  // Set `tracePropagationTargets` to control for which URLs distributed tracing should be enabled
+  tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+
+  // Capture Replay for 10% of all sessions,
+  // plus for 100% of sessions with an error
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 const liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken } });
