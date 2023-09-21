@@ -1,11 +1,11 @@
 steps:
-  - label: ":fsociety: Install Dependencies"
+  - label: ":package: Install Dependencies"
     commands:
       - "scripts/install_deps.sh"
       - "scripts/cache_upload.sh"
     key: install-deps
 
-  - label: ":fsociety: Static Analysis"
+  - label: ":mag: Static Analysis"
     commands:
       - "scripts/cache_download.sh"
       - "scripts/format_check.sh"

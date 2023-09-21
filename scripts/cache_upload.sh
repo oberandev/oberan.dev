@@ -4,6 +4,10 @@ set -euo pipefail
 
 echo "--- Upload artifacts to cache"
 
+echo ":nix: tarballs"
+tar -czf cache__nix_mix.tar.gz .nix-mix
+buildkite-agent artifact upload cache__nix_mix.tar.gz
+
 echo ":elixir: tarballs"
 tar -czf cache__build.tar.gz _build
 tar -czf cache__deps.tar.gz deps
