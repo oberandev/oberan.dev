@@ -1,16 +1,24 @@
 steps:
-  - label: ":fsociety: Static Analysis"
+  - label: ":fsociety: Install Dependencies"
     commands:
       - "scripts/install_deps.sh"
+      - "scripts/cache_upload.sh"
+    key: install-deps
+
+  - label: ":fsociety: Static Analysis"
+    commands:
+      - "scripts/cache_download.sh"
       - "scripts/format_check.sh"
       - "scripts/lint_check.sh"
     key: static-analysis
     agents:
       nix: "true"
+    depends_on:
+      - install-deps
 
   - label: ":test_tube: Unit & E2E Tests"
     commands:
-      - "scripts/install_deps.sh"
+      - "scripts/cache_download.sh"
       - "scripts/unit_tests.sh"
       - "scripts/e2e_tests.sh"
     if: "!build.pull_request.draft"
