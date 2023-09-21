@@ -90,7 +90,7 @@ blocks:
             - cache restore
             - curl -Os https://uploader.codecov.io/latest/linux/codecov
             - chmod +x codecov
-            - mix coveralls
+            - mix coveralls.json
             - ./codecov
 
   - name: "\U0001F52C E2E Tests"
