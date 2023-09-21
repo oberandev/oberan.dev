@@ -10,9 +10,9 @@ defmodule OberanWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
+  # pipeline :api do
+  #   plug :accepts, ["json"]
+  # end
 
   scope "/", OberanWeb do
     pipe_through :browser
