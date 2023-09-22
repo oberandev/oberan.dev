@@ -27,6 +27,7 @@ blocks:
       jobs:
         - name: mix deps.get and cache
           commands:
+            - scripts/setup_ci_elixir.sh
             - sem-version elixir 1.14
             - cache restore
             - mix deps.get
@@ -55,6 +56,7 @@ blocks:
       jobs:
         - name: format & lint (elixir)
           commands:
+            - scripts/setup_ci_elixir.sh
             - sem-version elixir 1.14
             - cache restore
             - mix format --check-formatted
@@ -62,12 +64,14 @@ blocks:
 
         - name: hex.pm audit (elixir)
           commands:
+            - scripts/setup_ci_elixir.sh
             - sem-version elixir 1.14
             - cache restore
             - mix hex.audit
 
         - name: no unused deps (elixir)
           commands:
+            - scripts/setup_ci_elixir.sh
             - sem-version elixir 1.14
             - cache restore
             - mix deps.unlock --check-unused
@@ -97,6 +101,7 @@ blocks:
       jobs:
         - name: ex_unit
           commands:
+            - scripts/setup_ci_elixir.sh
             - sem-version elixir 1.14
             - cache restore
             - curl -Os https://uploader.codecov.io/latest/linux/codecov
