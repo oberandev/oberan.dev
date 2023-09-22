@@ -28,7 +28,6 @@ blocks:
         - name: mix deps.get and cache
           commands:
             - sem-version elixir 1.14
-            - mix local.rebar --force
             - cache restore
             - mix deps.get
             - mix compile --warnings-as-errors
@@ -96,7 +95,7 @@ blocks:
         commands:
           - checkout
       jobs:
-        - name: phoenix (elixir)
+        - name: ex_unit
           commands:
             - sem-version elixir 1.14
             - cache restore
