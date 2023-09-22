@@ -27,7 +27,7 @@ blocks:
       jobs:
         - name: mix deps.get and cache
           commands:
-            - sem-version elixir 1.15
+            - sem-version elixir 1.14
             - cache restore
             - mix deps.get
             - mix compile
@@ -56,7 +56,7 @@ blocks:
       jobs:
         - name: format & lint (elixir)
           commands:
-            - sem-version elixir 1.15
+            - sem-version elixir 1.14
             - cache restore
             - mix format --check-formatted
             - mix credo
@@ -86,7 +86,7 @@ blocks:
       jobs:
         - name: phoenix (elixir)
           commands:
-            - sem-version elixir 1.15
+            - sem-version elixir 1.14
             - cache restore
             - curl -Os https://uploader.codecov.io/latest/linux/codecov
             - chmod +x codecov
@@ -109,3 +109,9 @@ blocks:
         - name: playwright
           commands:
             - echo "coming soon..."
+
+promotions:
+  - name: Production deploy
+    pipeline_file: production-deploy.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'main'"

@@ -5,6 +5,10 @@
   "main": "js/app.js",
   "author": "oberandev",
   "license": "MIT",
+  "engines": {
+    "node": ">=18",
+    "yarn": ">=1.22 <2"
+  },
   "scripts": {
     "format": "yarn prettier --write '**/*.{css,js,ts}'",
     "format:check": "yarn prettier --check '**/*.{css,js,ts}'",
