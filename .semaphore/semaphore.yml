@@ -28,7 +28,7 @@ blocks:
         - name: mix deps.get and cache
           commands:
             - sem-version elixir 1.14
-            - if [ $SEMAPHORE_WORKFLOW_RERUN ]; then mix deps.clean --all && mix clean; else cache restore; fi
+            - cache restore
             - mix deps.get
             - mix compile --warnings-as-errors
             - cache store
