@@ -28,11 +28,15 @@ blocks:
         - name: mix deps.get and cache
           commands:
             - sem-version elixir 1.14
-            - cache restore
+            - if [ $SEMAPHORE_WORKFLOW_RERUN ]; then
+                mix deps.clean --all;
+                mix clean
+              else
+                cache restore
+              fi
             - mix deps.get
-            - mix compile
+            - mix compile --warnings-as-errors
             - cache store
-
         - name: yarn install and cache
           commands:
             - sem-version node 20
@@ -60,6 +64,18 @@ blocks:
             - cache restore
             - mix format --check-formatted
             - mix credo
+
+        - name: hex.pm audit (elixir)
+          commands:
+            - sem-version elixir 1.14
+            - cache restore
+            - mix hex.audit
+
+        - name: no unused deps (elixir)
+          commands:
+            - sem-version elixir 1.14
+            - cache restore
+            - mix deps.unlock --check-unused
 
         - name: format & lint (javascript)
           commands:
