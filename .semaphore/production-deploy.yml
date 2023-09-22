@@ -19,4 +19,7 @@ blocks:
         - name: build and deploy
           commands:
             - curl -L https://fly.io/install.sh | sh
+            - echo "export FLYCTL_INSTALL='/home/semaphore/.fly'" >> ~/.bash_profile
+            - echo "export PATH='$FLYCTL_INSTALL/bin:$PATH'" >> ~/.bash_profile
+            - source ~/.bash_profile
             - flyctl deploy --remote-only
