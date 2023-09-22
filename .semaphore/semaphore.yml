@@ -124,7 +124,14 @@ blocks:
       jobs:
         - name: playwright
           commands:
-            - echo "coming soon..."
+            - scripts/setup_ci_elixir.sh
+            - sem-version elixir 1.14
+            - cache restore
+            - sem-version node 20
+            - cd assets
+            - cache restore
+            - yarn playwright install --with-deps
+            - yarn e2e:ci
 
 promotions:
   - name: Production deploy
