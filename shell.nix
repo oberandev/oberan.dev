@@ -5,7 +5,7 @@ let
   inherit (pkgs.lib) optionals;
 
   basePackages = [
-    pkgs.elixir_1_15
+    pkgs.elixir
     pkgs.elixir_ls
     pkgs.git
     pkgs.nixfmt
