@@ -81,8 +81,19 @@ blocks:
             - corepack enable
             - corepack prepare pnpm@latest-8 --activate
             - cache restore node-$(checksum pnpm-lock.yaml)
+            - pnpm install
             - pnpm format:check
             - pnpm lint
+
+        - name: pnpm audit (javascript)
+          commands:
+            - cd assets
+            - sem-version node 20
+            - corepack enable
+            - corepack prepare pnpm@latest-8 --activate
+            - cache restore node-$(checksum pnpm-lock.yaml)
+            - pnpm install
+            - pnpm audit --prod
 
   - name: "\U0001F9EA Unit Tests"
     task:
