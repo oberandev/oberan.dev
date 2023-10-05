@@ -33,13 +33,13 @@ blocks:
             - cache store
         - name: pnpm install
           commands:
+            - cd assets
             - sem-version node 20
             - corepack enable
             - corepack prepare pnpm@latest-8 --activate
-            - cd assets
-            - cache restore
+            - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm install
-            - cache store
+            - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
 
   - name: "\U0001F50D Static Analysis"
     task:
@@ -76,11 +76,11 @@ blocks:
 
         - name: format & lint (javascript)
           commands:
+            - cd assets
             - sem-version node 20
             - corepack enable
             - corepack prepare pnpm@latest-8 --activate
-            - cd assets
-            - cache restore
+            - cache restore node-$(checksum pnpm-lock.yaml)
             - pnpm format:check
             - pnpm lint
 
