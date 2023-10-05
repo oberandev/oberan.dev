@@ -1,7 +1,9 @@
 codecov:
-  bot: "codecov"
   require_ci_to_pass: true
+
 comment:
-  layout: "diff, flags, files"
   behavior: default
+  layout: "diff, flags, files"
   require_changes: false
+
+slack_app: false

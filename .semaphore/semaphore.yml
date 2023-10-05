@@ -19,13 +19,11 @@ blocks:
           value: test
         - name: NODE_ENV
           value: test
-        - name: CI
-          value: "true"
       prologue:
         commands:
           - checkout
       jobs:
-        - name: mix deps.get and cache
+        - name: mix deps.get
           commands:
             - scripts/setup_ci_elixir.sh
             - sem-version elixir 1.14
@@ -33,13 +31,15 @@ blocks:
             - mix deps.get
             - mix compile --warnings-as-errors
             - cache store
-        - name: yarn install and cache
+        - name: pnpm install
           commands:
-            - sem-version node 20
             - cd assets
-            - cache restore
-            - yarn install
-            - cache store
+            - sem-version node 20
+            - corepack enable
+            - corepack prepare pnpm@latest-8 --activate
+            - cache restore node-$(checksum pnpm-lock.yaml)
+            - pnpm install
+            - cache store node-$(checksum pnpm-lock.yaml) $(pnpm store path)
 
   - name: "\U0001F50D Static Analysis"
     task:
@@ -48,8 +48,6 @@ blocks:
           value: test
         - name: NODE_ENV
           value: test
-        - name: CI
-          value: "true"
       prologue:
         commands:
           - checkout
@@ -78,11 +76,13 @@ blocks:
 
         - name: format & lint (javascript)
           commands:
-            - sem-version node 20
             - cd assets
-            - cache restore
-            - yarn format:check
-            - yarn lint
+            - sem-version node 20
+            - corepack enable
+            - corepack prepare pnpm@latest-8 --activate
+            - cache restore node-$(checksum pnpm-lock.yaml)
+            - pnpm format:check
+            - pnpm lint
 
   - name: "\U0001F9EA Unit Tests"
     task:
@@ -91,8 +91,6 @@ blocks:
           value: test
         - name: NODE_ENV
           value: test
-        - name: CI
-          value: "true"
       secrets:
         - name: codecov
       prologue:
@@ -116,8 +114,6 @@ blocks:
           value: test
         - name: NODE_ENV
           value: test
-        - name: CI
-          value: "true"
       prologue:
         commands:
           - checkout
