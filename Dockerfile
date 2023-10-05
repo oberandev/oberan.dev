@@ -11,28 +11,31 @@
 #   - https://pkgs.org/ - resource for finding needed packages
 #   - Ex: hexpm/elixir:1.14.4-erlang-25.3.2-debian-bullseye-20230227-slim
 #
-ARG ELIXIR_VERSION=1.14.4
-ARG OTP_VERSION=25.3.2
-ARG DEBIAN_VERSION=bullseye-20230227-slim
+ARG ELIXIR_VERSION=1.15.6
+ARG OTP_VERSION=26.1.1
+ARG DEBIAN_VERSION=bullseye-20230612-slim
 
 ARG BUILDER_IMAGE="hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION}"
 ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
 FROM ${BUILDER_IMAGE} as builder
 
+# install build dependencies
+RUN apt update -y && \
+    apt install -y build-essential curl git gpg wget
+
 # add node apt sources
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
 
-# install build dependencies
-RUN apt-get update -y && \
-    apt-get install -y build-essential curl git nodejs && \
-    apt-get clean && \
-    rm -f /var/lib/apt/lists/*_*
+# install node & pnpm
+RUN apt install -y nodejs && \
+    wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" PNPM_VERSION=8.8.0 SHELL="$(which sh)" sh -
 
-# install pnpm
-RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
+# clean house
+RUN apt clean && \
+    rm -f /var/lib/apt/lists/*_*
 
 # prepare build dir
 WORKDIR /app
@@ -63,7 +66,7 @@ COPY lib lib
 COPY assets assets
 
 RUN cd assets && \
-    pnpm install --production --frozen-lockfile
+     $HOME/.local/share/pnpm/pnpm install --prod --frozen-lockfile
 
 # compile assets
 RUN mix assets.deploy
@@ -81,9 +84,9 @@ RUN mix release
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE}
 
-RUN apt-get update -y && \
-    apt-get install -y libstdc++6 openssl libncurses5 locales && \
-    apt-get clean && \
+RUN apt update -y && \
+    apt install -y libstdc++6 openssl libncurses5 locales && \
+    apt clean && \
     rm -f /var/lib/apt/lists/*_*
 
 # Set the locale
