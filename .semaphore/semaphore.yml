@@ -77,6 +77,8 @@ blocks:
         - name: format & lint (javascript)
           commands:
             - sem-version node 20
+            - corepack enable
+            - corepack prepare pnpm@latest-8 --activate
             - cd assets
             - cache restore
             - pnpm format:check
