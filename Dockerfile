@@ -20,20 +20,19 @@ ARG RUNNER_IMAGE="debian:${DEBIAN_VERSION}"
 
 FROM ${BUILDER_IMAGE} as builder
 
-# add node and yarn apt sources
-# https://github.com/nodesource/distributions/blob/master/README.md
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-
+# add node apt sources
 RUN mkdir -p /etc/apt/keyrings && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
 
 # install build dependencies
 RUN apt-get update -y && \
-    apt-get install -y build-essential curl git nodejs yarn && \
+    apt-get install -y build-essential curl git nodejs && \
     apt-get clean && \
     rm -f /var/lib/apt/lists/*_*
+
+# install pnpm
+RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
 
 # prepare build dir
 WORKDIR /app
@@ -64,7 +63,7 @@ COPY lib lib
 COPY assets assets
 
 RUN cd assets && \
-    yarn install --production --frozen-lockfile
+    pnpm install --production --frozen-lockfile
 
 # compile assets
 RUN mix assets.deploy
