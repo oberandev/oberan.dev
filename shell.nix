@@ -5,12 +5,12 @@ let
   inherit (pkgs.lib) optionals;
 
   basePackages = [
-    pkgs.elixir
+    pkgs.elixir_1_15
     pkgs.elixir_ls
     pkgs.git
     pkgs.nixfmt
     pkgs.nodejs_20
-    pkgs.yarn
+    pkgs.nodePackages.pnpm
   ];
 
   inputs = basePackages ++ optionals pkgs.stdenv.isLinux pkgs.inotify-tools
