@@ -3,19 +3,19 @@
   "version": "1.0.0",
   "description": "Oberan website",
   "main": "js/app.js",
-  "author": "oberandev",
+  "author": "Oberan (https://oberan.dev)",
   "license": "MIT",
   "engines": {
     "node": ">= 18"
   },
   "scripts": {
-    "format": "prettier --write '**/*.{css,js,ts}'",
-    "format:check": "prettier --check '**/*.{css,js,ts}'",
-    "lint": "eslint 'js/**/*.{js,ts}'",
-    "lint:fix": "eslint 'js/**/*.{js,ts}' --fix"
+    "format": "prettier --write '**/*.{css,json,js,ts,mjs,mts}'",
+    "format:check": "prettier --check '**/*.{css,json,js,ts,mjs,mts}'",
+    "lint": "eslint 'js/**/*.{js,ts,mjs,mts}'",
+    "lint:fix": "eslint 'js/**/*.{js,ts,mjs,mts}' --fix"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@eslint/eslintrc": "^2.1.2",
     "@typescript-eslint/parser": "^6.7.0",
     "eslint": "^8.49.0",
     "eslint-plugin-import": "^2.28.1",
