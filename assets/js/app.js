@@ -17,12 +17,12 @@
 
 // Include phoenix_html to handle method=PUT/DELETE in forms and buttons.
 import "phoenix_html";
+import * as Sentry from "@sentry/browser";
 // Establish Phoenix Socket and LiveView configuration.
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
-import * as Sentry from "@sentry/browser";
 
-import topbar from "../vendor/topbar";
+import topbar from "../vendor/topbar"; // eslint-disable-line import/no-relative-parent-imports
 import "./devs";
 
 Sentry.init({

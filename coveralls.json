@@ -6,6 +6,7 @@
     "lib/oberan_web/controllers/page_html.ex",
     "lib/oberan_web/endpoint.ex",
     "lib/oberan_web/gettext.ex",
-    "lib/oberan_web/telemetry.ex"
+    "lib/oberan_web/telemetry.ex",
+    "test/"
   ]
 }
