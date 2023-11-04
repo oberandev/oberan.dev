@@ -1,9 +1,9 @@
 # Build configuration
 # -------------------
 
-APP_NAME = `grep -Eo 'app: :\w*' mix.exs | cut -d ':' -f 3`
-GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
-GIT_REVISION = `git rev-parse HEAD`
+APP_NAME := `grep -Eo 'app: :\w*' mix.exs | cut -d ':' -f 3`
+GIT_BRANCH :=`git rev-parse --abbrev-ref HEAD`
+GIT_REVISION := `git rev-parse HEAD`
 
 # Introspection targets
 # ---------------------
@@ -45,13 +45,10 @@ build: ## Make a production build
 clean: ## Remove build artifacts
 	rm -rf _build
 
-.PHONY: deps-ex
-deps-ex: ## Install Elixir dependencies
+.PHONY: deps
+deps: ## Install Elixir and Npm deps
 	mix deps.get --force
-
-.PHONY: deps-js
-deps-js: ## Install Javascript dependencies
-	cd assets && yarn
+	cd assets && pnpm install
 
 .PHONY: certs
 certs: ## Create SSL certs for development
@@ -61,8 +58,8 @@ certs: ## Create SSL certs for development
 run: ## Run the web server
 	iex -S mix phx.server
 
-.PHONY: test-ex
-test-ex: ## Test Elixir code
+.PHONY: test
+test: ## Test Elixir code
 	mix test
 
 # Check, lint and format targets
@@ -74,7 +71,7 @@ format-ex: ## Format all Elixir files
 
 .PHONY: format-js
 format-js: ## Format all Javascript files
-	cd assets && yarn format
+	cd assets && pnpm format
 
 .PHONY: format-ex-check
 format-ex-check:
@@ -82,7 +79,7 @@ format-ex-check:
 
 .PHONY: format-js-check
 format-js-check:
-	cd assets && yarn format:check
+	cd assets && pnpm format:check
 
 .PHONY: lint-ex
 lint-ex: ## Lint all Elixir files
@@ -90,4 +87,4 @@ lint-ex: ## Lint all Elixir files
 
 .PHONY: lint-js
 lint-js: ## Lint all Javascript files
-	cd assets && yarn lint
+	cd assets && pnpm lint
