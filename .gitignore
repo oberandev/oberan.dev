@@ -51,3 +51,9 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Playwright
+assets/test-results/
+assets/playwright-report/
+assets/blob-report/
+assets/playwright/.cache/
