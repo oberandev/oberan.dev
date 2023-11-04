@@ -1,0 +1,145 @@
+steps:
+  - label: ":package: Install Dependencies"
+    key: deps
+    command: "scripts/install_deps"
+    plugins:
+      - cache#v0.6.0:
+          manifest: mix.lock
+          path: deps
+          restore: pipeline
+          save: file
+          compression: tgz
+      - cache#v0.6.0:
+          manifest: assets/pnpm-lock.yaml
+          path: assets/node_modules
+          restore: pipeline
+          save: file
+          compression: tgz
+    # cache `.nix-hex` and `.nix-mix` folders as well
+    if: "!build.pull_request.draft"
+
+  - wait
+
+  - label: ":elixir: Compile Without Warnings"
+    key: compile
+    commands:
+      - "scripts/install_deps"
+      - "scripts/compile"
+    if: "!build.pull_request.draft"
+
+  - wait
+
+  - group: ":sleuth_or_spy: Static Analysis"
+    key: static
+    steps:
+      - label: ":prettier: Prettier"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/format_prettier"
+        plugins:
+          - cache#v0.6.0:
+              manifest: assets/pnpm-lock.yaml
+              path: assets/node_modules
+              restore: file
+              compression: tgz
+
+      - label: ":elixir: Mix Format"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/format_mix"
+        plugins:
+          - cache#v0.6.0:
+              manifest: mix.lock
+              path: deps
+              restore: file
+              compression: tgz
+
+      - label: ":eslint: ESLint"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/lint_eslint"
+        plugins:
+          - cache#v0.6.0:
+              manifest: assets/pnpm-lock.yaml
+              path: assets/node_modules
+              restore: file
+              compression: tgz
+
+      - label: ":credo: Credo"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/lint_credo"
+        plugins:
+          - cache#v0.6.0:
+              manifest: mix.lock
+              path: deps
+              restore: file
+              compression: tgz
+    if: "!build.pull_request.draft"
+
+  - group: ":lock_with_ink_pen: Security Audits"
+    key: audits
+    steps:
+      - label: ":pnpm: NPM Audit"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/audit_pnpm"
+        plugins:
+          - cache#v0.6.0:
+              manifest: assets/pnpm-lock.yaml
+              path: assets/node_modules
+              restore: file
+              compression: tgz
+
+      - label: ":hex: Hex Audit"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/audit_hex"
+        plugins:
+          - cache#v0.6.0:
+              manifest: mix.lock
+              path: deps
+              restore: file
+              compression: tgz
+
+      - label: ":elixir: No Unused Deps"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/mix_no_unused_deps"
+        plugins:
+          - cache#v0.6.0:
+              manifest: mix.lock
+              path: deps
+              restore: file
+              compression: tgz
+    if: "!build.pull_request.draft"
+
+  - wait
+
+  - group: ":test_tube: Tests"
+    key: tests
+    steps:
+      - label: ":elixir: Unit Tests"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/test_exunit"
+          - "scripts/test_codecov"
+        env:
+          MIX_ENV: "test"
+
+      - label: ":playwright: E2E Tests"
+        commands:
+          - "scripts/install_deps"
+          - "scripts/test_playwright"
+        env:
+          NODE_ENV: "test"
+    if: "!build.pull_request.draft"
+
+  - label: ":fly-io: Deploy"
+    command: "scripts/deploy"
+    branches: "main"
+    concurrency: 1
+    concurrency_group: "oberan/deploy"
+    depends_on:
+      - tests
+# https://fly.io/docs/elixir/advanced-guides/github-actions-elixir-ci-cd/
