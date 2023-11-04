@@ -8,7 +8,7 @@ Marketing website [oberan.dev](https://oberan.dev)
 ## Setup
 
 1. Ensure you have [Nix](https://nixos.org/download.html) and [direnv](https://direnv.net/#basic-installation) configured
-2. Run `cp envrc.example envrc` and configure any necessary env vars
+2. Run `cp .envrc.example .envrc` and configure any necessary env vars
 3. Run `direnv allow`
 
 ## Development
