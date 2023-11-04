@@ -13,7 +13,6 @@ Marketing website [oberan.dev](https://oberan.dev)
 
 ## Development
 
-1. Install Elixir deps with `make deps-ex`
-2. Install Javascript deps with `make deps-js`
-3. Create SSL certs for local developmnt with `make certs`
-4. Run development server with `make run`
+1. Install deps with `make deps`
+2. Create SSL certs for local developmnt with `make certs`
+3. Run development server with `make run`
