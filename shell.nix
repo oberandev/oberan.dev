@@ -7,7 +7,6 @@ let
   basePackages = [
     pkgs.elixir_1_15
     pkgs.elixir_ls
-    pkgs.git
     pkgs.nixfmt
     pkgs.nodejs_20
     pkgs.nodePackages.pnpm
