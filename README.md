@@ -13,6 +13,6 @@ Marketing website [oberan.dev](https://oberan.dev)
 
 ## Development
 
-1. Install deps with `make deps`
+1. Install project deps with `make deps`
 2. Create SSL certs for local developmnt with `make certs`
 3. Run development server with `make run`
