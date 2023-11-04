@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+nix-shell --run "mix local.hex --force"
+nix-shell --run "mix local.rebar --force"
+nix-shell --run "mix deps.get --force"
+
+cd assets
+nix-shell --run "pnpm install"
