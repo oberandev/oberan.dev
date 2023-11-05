@@ -14,6 +14,7 @@ defmodule OberanWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/contact", ContactController, :home
     get "/sitemap", SitemapController, :index
   end
 
