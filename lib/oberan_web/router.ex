@@ -15,6 +15,7 @@ defmodule OberanWeb.Router do
 
     get "/", PageController, :home
     get "/contact", ContactController, :home
+    get "/privacy", PrivacyController, :home
     get "/sitemap", SitemapController, :index
   end
 
