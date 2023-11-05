@@ -14,6 +14,7 @@ defmodule OberanWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/sitemap", SitemapController, :index
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
