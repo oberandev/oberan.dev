@@ -1,32 +1,58 @@
-<header class="px-4 sm:px-6 lg:px-8">
-  <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
-    <div class="flex items-center gap-4">
-      <a href="/">
-        <img src={~p"/images/logo.svg"} width="36" />
+<header>
+  <div class="flex justify-between pt-16 px-6 lg:px-36">
+    <div class="flex items-center">
+      <a href="/" class="text-red" aria-label="Home">
+        <svg
+          id="logo-sm"
+          viewBox="0 0 23 31"
+          class="w-6 fill-[#223256] lg:hidden"
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid slice"
+          role="img"
+        >
+          <path
+            d="M11.4602 22.7064C17.7633 22.7064 22.9204 17.6029 22.9204 11.3653C22.9204 5.12775 17.7633 0.024292 11.4602 0.024292C5.15709 0.024292 0 5.12775 0 11.3653C0 17.6029 5.15709 22.7064 11.4602 22.7064ZM11.4602 5.08414C14.9864 5.08414 17.8074 7.87576 17.8074 11.3653C17.8074 14.8548 14.9864 17.6465 11.4602 17.6465C7.93399 17.6465 5.11301 14.8548 5.11301 11.3653C5.11301 7.87576 7.93399 5.08414 11.4602 5.08414ZM21.5099 25.9342H1.14602V30.994H21.5099V25.9342Z"
+            fill="#223256"
+          />
+        </svg>
+        <svg
+          id="logo-lg"
+          viewBox="0 0 158 44"
+          class="w-28 fill-[#223256] hidden lg:block"
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid slice"
+          role="img"
+        >
+          <path d="M11.3953 31.9397C17.6627 31.9397 22.7906 24.8888 22.7906 16.2712C22.7906 7.65347 17.6627 0.602637 11.3953 0.602637C5.12788 0.602637 0 7.65347 0 16.2712C0 24.8888 5.12788 31.9397 11.3953 31.9397ZM11.3953 7.5932C14.9015 7.5932 17.7065 11.4501 17.7065 16.2712C17.7065 21.0922 14.9015 24.9491 11.3953 24.9491C7.88904 24.9491 5.08405 21.0922 5.08405 16.2712C5.08405 11.4501 7.88904 7.5932 11.3953 7.5932ZM21.3881 36.3992H1.13953V43.3897H21.3881V36.3992ZM44.2225 22.3578C46.8521 21.4538 49.3504 18.6214 49.3504 13.0772C49.3504 0.903953 39.1384 1.20527 39.1384 1.20527H28.9265V43.3897H39.1384C41.1983 43.3897 49.7886 42.8474 49.7886 31.2768C49.7886 31.2768 50.0078 23.9849 44.2225 22.3578ZM34.0105 8.19584H39.1384C39.1384 8.19584 44.2225 7.89452 44.2225 13.5593C44.2225 18.8022 39.1384 18.8022 39.1384 18.8022H34.0105V8.19584ZM39.1384 36.3992H34.0105V25.8531H39.1384C39.1384 25.8531 44.6608 25.4312 44.6608 31.096C44.6608 35.676 41.286 36.3992 39.1384 36.3992ZM75.8225 8.2561V1.20527H55.3548V43.3897H75.8225V36.3389H60.4827V25.7928H73.2366V18.8022H60.4827V8.2561H75.8225ZM103.215 43.3897L94.8877 25.0696C97.868 23.9246 101.637 20.9717 101.637 13.499C101.637 1.20527 91.3814 1.20527 91.3814 1.20527H81.1695V8.2561L86.0344 18.8022H81.1695V43.3897H86.2974V25.7928H89.2338L97.2105 43.3897H103.215ZM87.2616 8.2561H91.3814C91.3814 8.2561 96.5093 8.2561 96.5093 13.499C96.5093 17.6572 93.3975 18.5612 92.0388 18.742L87.2616 8.2561ZM123.464 43.3897H128.986L116.714 0L104.486 43.3897H110.008L111.323 38.5084H122.105L123.464 43.3897ZM116.714 17.7777L120.439 32.4218H112.989L116.714 17.7777ZM158 1.20527H152.916V31.2165L137.62 1.20527H132.448V43.3897H137.576V13.3785L152.828 43.3897H158V1.20527Z" />
+        </svg>
       </a>
-      <p class="bg-brand/5 text-brand rounded-full px-2 font-medium leading-6">
-        v<%= Application.spec(:phoenix, :vsn) %>
-      </p>
     </div>
-    <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
-      <a href="https://twitter.com/elixirphoenix" class="hover:text-zinc-700">
-        @elixirphoenix
-      </a>
-      <a href="https://github.com/phoenixframework/phoenix" class="hover:text-zinc-700">
-        GitHub
-      </a>
-      <a
-        href="https://hexdocs.pm/phoenix/overview.html"
-        class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80"
+    <div class="flex items-center">
+      <button
+        class="group -m-2.5 p-2.5 rounded-full transition hover:bg-neutral-950/10"
+        type="button"
+        aria-controls=":R5a:"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
       >
-        Get Started <span aria-hidden="true">&rarr;</span>
-      </a>
+        <svg
+          id="nav"
+          viewBox="0 0 24 24"
+          class="h-6 w-6 fill-neutral-950 group-hover:fill-neutral-700"
+          aria-hidden="true"
+          preserveAspectRatio="xMidYMid slice"
+          role="img"
+        >
+          <path d="M2 6h20v2H2zM2 16h20v2H2z" />
+        </svg>
+      </button>
     </div>
   </div>
 </header>
-<main class="px-4 py-20 sm:px-6 lg:px-8">
+
+<main class="w-full flex-auto">
   <div class="mx-auto max-w-2xl">
     <.flash_group flash={@flash} />
-    <%= @inner_content %>
   </div>
+  <%= @inner_content %>
 </main>
