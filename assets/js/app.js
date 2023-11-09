@@ -19,11 +19,12 @@
 import "phoenix_html";
 import * as Sentry from "@sentry/browser";
 // Establish Phoenix Socket and LiveView configuration.
-import { Socket } from "phoenix";
-import { LiveSocket } from "phoenix_live_view";
 import anime from "animejs/lib/anime.es";
+import * as Ap from "fp-ts/Apply";
 import { pipe } from "fp-ts/function";
 import * as O from "fp-ts/Option";
+import { Socket } from "phoenix";
+import { LiveSocket } from "phoenix_live_view";
 
 import topbar from "../vendor/topbar"; // eslint-disable-line import/no-relative-parent-imports
 import "./devs";
@@ -65,55 +66,44 @@ window.liveSocket = liveSocket;
 
 pipe(
   O.fromNullable(document.getElementById("geo_frac_lg")),
-  O.chain((svg) => O.fromNullable(svg.querySelector("#path6"))),
-  O.map((path) => {
+  O.chain((svg) => {
+    return Ap.sequenceT(O.Apply)(
+      O.fromNullable(svg.getElementById("path6")),
+      O.fromNullable(svg.getElementById("path24")),
+      O.fromNullable(svg.getElementById("path26")),
+      O.fromNullable(svg.getElementById("path33")),
+    );
+  }),
+  O.map(([path6, path24, path26, path33]) => {
     anime({
-      targets: path,
+      targets: path6,
       translateY: 109,
       direction: "alternate",
       loop: true,
       easing: "cubicBezier(0.65, 0, 0.35, 1)",
       duration: 7500,
     });
-  }),
-);
 
-pipe(
-  O.fromNullable(document.getElementById("geo_frac_lg")),
-  O.chain((svg) => O.fromNullable(svg.querySelector("#path24"))),
-  O.map((path) => {
     anime({
-      targets: path,
+      targets: path24,
       translateY: 109,
       direction: "alternate",
       loop: true,
       easing: "cubicBezier(0.65, 0, 0.35, 1)",
       duration: 7500,
     });
-  }),
-);
 
-pipe(
-  O.fromNullable(document.getElementById("geo_frac_lg")),
-  O.chain((svg) => O.fromNullable(svg.querySelector("#path26"))),
-  O.map((path) => {
     anime({
-      targets: path,
+      targets: path26,
       translateY: -109,
       direction: "alternate",
       loop: true,
       easing: "cubicBezier(0.65, 0, 0.35, 1)",
       duration: 7500,
     });
-  }),
-);
 
-pipe(
-  O.fromNullable(document.getElementById("geo_frac_lg")),
-  O.chain((svg) => O.fromNullable(svg.querySelector("#path33"))),
-  O.map((path) => {
     anime({
-      targets: path,
+      targets: path33,
       translateX: 108.1,
       direction: "alternate",
       loop: true,
