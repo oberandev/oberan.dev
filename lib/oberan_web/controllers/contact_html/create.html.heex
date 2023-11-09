@@ -10,7 +10,7 @@
   </h1>
 
   <div class="mt-24 w-full md:w-1/2">
-    <.form for={@form} phx-change="validate" phx-submit="save">
+    <.form for={@changeset}>
       <h2 class="font-display text-base font-semibold text-neutral-950">Work Inquiries</h2>
       <div class="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
         <div class="group relative z-0 transition-all focus-within:z-10">
@@ -20,7 +20,7 @@
             placeholder=" "
             type="text"
             name="name"
-            field={@form[:name]}
+            field={@changeset[:name]}
             class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
           />
           <label
@@ -37,7 +37,7 @@
             placeholder=" "
             type="text"
             name="email"
-            field={@form[:email]}
+            field={@changeset[:email]}
             class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
           />
           <label
@@ -54,7 +54,7 @@
             placeholder=" "
             type="text"
             name="company"
-            field={@form[:company]}
+            field={@changeset[:company]}
             class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
           />
           <label
@@ -71,7 +71,7 @@
             placeholder=" "
             type="tel"
             name="phone"
-            field={@form[:phone]}
+            field={@changeset[:phone]}
             class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
           />
           <label
@@ -87,7 +87,7 @@
             placeholder=" "
             type="text"
             name="message"
-            field={@form[:message]}
+            field={@changeset[:message]}
             class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
           />
           <label
