@@ -11,6 +11,9 @@ dependencies:
   animejs:
     specifier: ^3.2.1
     version: 3.2.1
+  fp-ts:
+    specifier: ^2.16.1
+    version: 2.16.1
   tailwindcss:
     specifier: ^3.3.5
     version: 3.3.5
@@ -1021,6 +1024,10 @@ packages:
     dependencies:
       is-callable: 1.2.7
     dev: true
+
+  /fp-ts@2.16.1:
+    resolution: {integrity: sha512-by7U5W8dkIzcvDofUcO42yl9JbnHTEDBrzu3pt5fKT+Z4Oy85I21K80EYJYdjQGC2qum4Vo55Ag57iiIK4FYuA==}
+    dev: false
 
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}

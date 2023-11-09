@@ -22,6 +22,8 @@ import * as Sentry from "@sentry/browser";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import anime from "animejs/lib/anime.es";
+import { pipe } from "fp-ts/function";
+import * as O from "fp-ts/Option";
 
 import topbar from "../vendor/topbar"; // eslint-disable-line import/no-relative-parent-imports
 import "./devs";
@@ -61,40 +63,62 @@ liveSocket.connect();
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
 
-const path6 = document.getElementById("geo_frac_lg").querySelector("#path6"); // this doesn't handle chaining w/ null
-const path24 = document.getElementById("geo_frac_lg").querySelector("#path24");
-const path26 = document.getElementById("geo_frac_lg").querySelector("#path26");
-const path33 = document.getElementById("geo_frac_lg").querySelector("#path33");
+pipe(
+  O.fromNullable(document.getElementById("geo_frac_lg")),
+  O.chain((svg) => O.fromNullable(svg.querySelector("#path6"))),
+  O.map((path) => {
+    anime({
+      targets: path,
+      translateY: 109,
+      direction: "alternate",
+      loop: true,
+      easing: "cubicBezier(0.65, 0, 0.35, 1)",
+      duration: 7500,
+    });
+  }),
+);
 
-anime({
-  targets: path6,
-  translateY: 109,
-  direction: "alternate",
-  loop: true,
-  easing: "cubicBezier(0.65, 0, 0.35, 1)",
-  duration: 7500,
-});
-anime({
-  targets: path24,
-  translateY: 109,
-  direction: "alternate",
-  loop: true,
-  easing: "cubicBezier(0.65, 0, 0.35, 1)",
-  duration: 7500,
-});
-anime({
-  targets: path26,
-  translateY: -109,
-  direction: "alternate",
-  loop: true,
-  easing: "cubicBezier(0.65, 0, 0.35, 1)",
-  duration: 7500,
-});
-anime({
-  targets: path33,
-  translateX: 108.1,
-  direction: "alternate",
-  loop: true,
-  easing: "cubicBezier(0.65, 0, 0.35, 1)",
-  duration: 7500,
-});
+pipe(
+  O.fromNullable(document.getElementById("geo_frac_lg")),
+  O.chain((svg) => O.fromNullable(svg.querySelector("#path24"))),
+  O.map((path) => {
+    anime({
+      targets: path,
+      translateY: 109,
+      direction: "alternate",
+      loop: true,
+      easing: "cubicBezier(0.65, 0, 0.35, 1)",
+      duration: 7500,
+    });
+  }),
+);
+
+pipe(
+  O.fromNullable(document.getElementById("geo_frac_lg")),
+  O.chain((svg) => O.fromNullable(svg.querySelector("#path26"))),
+  O.map((path) => {
+    anime({
+      targets: path,
+      translateY: -109,
+      direction: "alternate",
+      loop: true,
+      easing: "cubicBezier(0.65, 0, 0.35, 1)",
+      duration: 7500,
+    });
+  }),
+);
+
+pipe(
+  O.fromNullable(document.getElementById("geo_frac_lg")),
+  O.chain((svg) => O.fromNullable(svg.querySelector("#path33"))),
+  O.map((path) => {
+    anime({
+      targets: path,
+      translateX: 108.1,
+      direction: "alternate",
+      loop: true,
+      easing: "cubicBezier(0.65, 0, 0.35, 1)",
+      duration: 7500,
+    });
+  }),
+);
