@@ -17,6 +17,7 @@ defmodule OberanWeb.Router do
     get "/contact", ContactController, :create
     get "/privacy", PrivacyController, :home
     get "/sitemap", SitemapController, :index
+    get "/work", WorkController, :home
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
