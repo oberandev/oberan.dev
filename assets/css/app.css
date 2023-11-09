@@ -9,6 +9,7 @@
   src: url("/fonts/Oswald-Regular.woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -16,4 +17,5 @@
   src: url("/fonts/SourceSansPro-Regular.woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
