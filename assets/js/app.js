@@ -19,6 +19,10 @@
 import "phoenix_html";
 import * as Sentry from "@sentry/browser";
 // Establish Phoenix Socket and LiveView configuration.
+import anime from "animejs/lib/anime.es";
+import * as Ap from "fp-ts/Apply";
+import { pipe } from "fp-ts/function";
+import * as O from "fp-ts/Option";
 import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 
@@ -59,3 +63,54 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
+
+if (!window.matchMedia("prefers-reduced-motion").matches) {
+  pipe(
+    O.fromNullable(document.getElementById("geo_frac_lg")),
+    O.chain((svg) => {
+      return Ap.sequenceT(O.Apply)(
+        O.fromNullable(svg.getElementById("path6")),
+        O.fromNullable(svg.getElementById("path24")),
+        O.fromNullable(svg.getElementById("path26")),
+        O.fromNullable(svg.getElementById("path33")),
+      );
+    }),
+    O.map(([path6, path24, path26, path33]) => {
+      anime({
+        targets: path6,
+        translateY: 109,
+        direction: "alternate",
+        loop: true,
+        easing: "cubicBezier(0.65, 0, 0.35, 1)",
+        duration: 7500,
+      });
+
+      anime({
+        targets: path24,
+        translateY: 109,
+        direction: "alternate",
+        loop: true,
+        easing: "cubicBezier(0.65, 0, 0.35, 1)",
+        duration: 7500,
+      });
+
+      anime({
+        targets: path26,
+        translateY: -109,
+        direction: "alternate",
+        loop: true,
+        easing: "cubicBezier(0.65, 0, 0.35, 1)",
+        duration: 7500,
+      });
+
+      anime({
+        targets: path33,
+        translateX: 108.1,
+        direction: "alternate",
+        loop: true,
+        easing: "cubicBezier(0.65, 0, 0.35, 1)",
+        duration: 7500,
+      });
+    }),
+  );
+}
