@@ -4,6 +4,7 @@ defmodule OberanWeb.ContactController do
   def home(conn, _params) do
     conn
     |> assign(:page_title, "Contact")
+    |> assign(:form, %{})
     |> render(:home)
   end
 end
