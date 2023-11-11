@@ -10,16 +10,14 @@ defmodule Oberan.Application do
     Logger.add_backend(Sentry.LoggerBackend)
 
     children = [
-      # Start the Telemetry supervisor
       OberanWeb.Telemetry,
-      # Start the PubSub system
+      {DNSCluster, query: Application.get_env(:oberan, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Oberan.PubSub},
-      # Start Finch
       {Finch, name: Oberan.Finch},
-      # Start the Endpoint (http/https)
-      OberanWeb.Endpoint
       # Start a worker by calling: Oberan.Worker.start_link(arg)
       # {Oberan.Worker, arg}
+      # Start to serve requests, typically the last entry
+      OberanWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
