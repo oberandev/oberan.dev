@@ -7,9 +7,13 @@
 # General application configuration
 import Config
 
+config :oberan,
+  generators: [timestamp_type: :utc_datetime]
+
 # Configures the endpoint
 config :oberan, OberanWeb.Endpoint,
   url: [host: "localhost"],
+  adapter: Phoenix.Endpoint.Cowboy2Adapter,
   render_errors: [
     formats: [html: OberanWeb.ErrorHTML, json: OberanWeb.ErrorJSON],
     layout: false
