@@ -14,7 +14,8 @@ defmodule OberanWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-    get "/contact", ContactController, :create
+    get "/contact", ContactController, :new
+    post "/contact", ContactController, :create
     get "/privacy", PrivacyController, :home
     get "/sitemap", SitemapController, :index
     get "/work", WorkController, :home
