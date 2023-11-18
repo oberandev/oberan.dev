@@ -2,6 +2,8 @@ defmodule OberanWeb.ContactController do
   use OberanWeb, :controller
 
   alias Oberan.Inquiry
+  alias Obearn.InquiryEmail
+  alias Oberan.Mailer
 
   def new(conn, _params) do
     changeset =
@@ -21,6 +23,12 @@ defmodule OberanWeb.ContactController do
       |> Map.put(:action, :insert)
 
     if changeset.valid? do
+      InquiryEmail.thank_you(inquiry_params)
+      |> Mailer.deliver()
+
+      InquiryEmail.internal(inquiry_params)
+      |> Mailer.deliver()
+
       conn
       |> put_flash(:info, "Inquiry sent successfully.")
       |> redirect(to: ~p"/")
