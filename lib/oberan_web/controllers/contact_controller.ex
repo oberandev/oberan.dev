@@ -14,14 +14,11 @@ defmodule OberanWeb.ContactController do
     |> render(:new)
   end
 
-  # def create(conn, %{"inquiry" => inquiry_params}) do
   def create(conn, inquiry_params) do
     changeset =
       %Inquiry{}
       |> Oberan.Inquiry.changeset(inquiry_params)
       |> Map.put(:action, :insert)
-
-    IO.inspect(changeset)
 
     if changeset.valid? do
       conn

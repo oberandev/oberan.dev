@@ -22,15 +22,15 @@
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_name"
-              placeholder=" "
+              placeholder="John Doe"
               autocomplete="name"
               type="text"
               name="name"
               value={Phoenix.HTML.Form.normalize_value("text", f[:name].value)}
               aria-invalid={"#{f[:name].errors != []}"}
-              aria-describedby="inquiry_name_error"
+              aria-describedby="inquiry_name_errors"
               class={[
-                "block w-full rounded-md border-0 py-1.5 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
                 if f[:name].errors != [] do
                   "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
                 else
@@ -45,7 +45,7 @@
               <.icon name="hero-exclamation-circle-mini" />
             </div>
           </div>
-          <div :if={length(f[:name].errors) > 0}>
+          <div :if={f[:name].errors != []} id="inquiry_name_errors">
             <%= for error <- f[:name].errors do %>
               <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                 <%= translate_error(error) %>
@@ -60,7 +60,7 @@
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_email"
-              placeholder=" "
+              placeholder="john.doe@company.com"
               autocomplete="email"
               type="email"
               name="email"
@@ -68,7 +68,7 @@
               aria-invalid={"#{f[:email].errors != []}"}
               aria-describedby="inquiry_email_error"
               class={[
-                "block w-full rounded-md border-0 py-1.5 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
                 if f[:email].errors != [] do
                   "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
                 else
@@ -83,7 +83,7 @@
               <.icon name="hero-exclamation-circle-mini" />
             </div>
           </div>
-          <div :if={length(f[:email].errors) > 0}>
+          <div :if={f[:email].errors != []}>
             <%= for error <- f[:email].errors do %>
               <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                 <%= translate_error(error) %>
@@ -92,13 +92,14 @@
           </div>
         </div>
         <div>
-          <label for="inquiry_company" class="block text-sm font-medium leading-6 text-gray-900">
-            Company
-          </label>
+          <div class="flex items-center text-sm font-medium leading-6">
+            <label for="inquiry_company" class="block text-gray-900">Company</label>
+            <span class="text-gray-400 pl-1.5">(optional)</span>
+          </div>
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_company"
-              placeholder=" "
+              placeholder="Uptown Dynamics"
               autocomplete="organization"
               type="text"
               name="company"
@@ -106,7 +107,7 @@
               aria-invalid={"#{f[:company].errors != []}"}
               aria-describedby="inquiry_company_error"
               class={[
-                "block w-full rounded-md border-0 py-1.5 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
                 if f[:company].errors != [] do
                   "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
                 else
@@ -121,7 +122,7 @@
               <.icon name="hero-exclamation-circle-mini" />
             </div>
           </div>
-          <div :if={length(f[:company].errors) > 0}>
+          <div :if={f[:company].errors != []}>
             <%= for error <- f[:company].errors do %>
               <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                 <%= translate_error(error) %>
@@ -130,13 +131,14 @@
           </div>
         </div>
         <div>
-          <label for="inquiry_phone" class="block text-sm font-medium leading-6 text-gray-900">
-            Phone
-          </label>
+          <div class="flex items-center text-sm font-medium leading-6">
+            <label for="inquiry_phone" class="block text-gray-900">Phone</label>
+            <span class="text-gray-400 pl-1.5">(optional)</span>
+          </div>
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_phone"
-              placeholder=" "
+              placeholder="+1 303-555-0101"
               autocomplete="tel"
               type="tel"
               name="phone"
@@ -144,7 +146,7 @@
               aria-invalid={"#{f[:phone].errors != []}"}
               aria-describedby="inquiry_phone_error"
               class={[
-                "block w-full rounded-md border-0 py-1.5 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
                 if f[:phone].errors != [] do
                   "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
                 else
@@ -159,7 +161,7 @@
               <.icon name="hero-exclamation-circle-mini" />
             </div>
           </div>
-          <div :if={length(f[:phone].errors) > 0}>
+          <div :if={f[:phone].errors != []}>
             <%= for error <- f[:phone].errors do %>
               <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                 <%= translate_error(error) %>
@@ -197,7 +199,7 @@
               <.icon name="hero-exclamation-circle-mini" />
             </div>
           </div>
-          <div :if={length(f[:message].errors) > 0} id="inquiry_message_error">
+          <div :if={f[:message].errors != []} id="inquiry_message_error">
             <%= for error <- f[:message].errors do %>
               <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                 <%= translate_error(error) %>
@@ -223,7 +225,7 @@
                 />
                 <label
                   for="budget_25"
-                  class="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
                 >
                   $25K – $50K
                 </label>
@@ -239,7 +241,7 @@
                 />
                 <label
                   for="budget_50"
-                  class="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
                 >
                   $50K – $100K
                 </label>
@@ -255,7 +257,7 @@
                 />
                 <label
                   for="budget_100"
-                  class="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
                 >
                   $100K – $150K
                 </label>
@@ -271,14 +273,14 @@
                 />
                 <label
                   for="budget_150"
-                  class="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
                 >
                   More than $150K
                 </label>
               </div>
             </div>
           </fieldset>
-          <div :if={length(f[:budget].errors) > 0} id="inquiry_budget_error">
+          <div :if={f[:budget].errors != []} id="inquiry_budget_error">
             <%= for error <- f[:budget].errors do %>
               <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                 <%= translate_error(error) %>
@@ -287,149 +289,6 @@
           </div>
         </div>
       </div>
-      <!--<div class="isolate mt-6 -space-y-px rounded-2xl bg-white/50">
-        <div class="group relative z-0 transition-all focus-within:z-10">
-          <input
-            id="inquiry[name]"
-            autocomplete="name"
-            placeholder=" "
-            type="text"
-            name="name"
-            value={Phoenix.HTML.Form.normalize_value("text", f[:name].value)}
-            required
-            class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
-          />
-          <label
-            for="inquiry[name]"
-            class="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
-          >
-            Name
-          </label>
-        </div>
-        <div class="group relative z-0 transition-all focus-within:z-10">
-          <input
-            id="inquiry[email]"
-            autocomplete="email"
-            placeholder=" "
-            type="email"
-            name="email"
-            value={Phoenix.HTML.Form.normalize_value("email", f[:email].value)}
-            required
-            class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
-          />
-          <label
-            for="inquiry[email]"
-            class="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
-          >
-            Email
-          </label>
-        </div>
-        <div class="group relative z-0 transition-all focus-within:z-10">
-          <input
-            id="inquiry[company]"
-            autocomplete="organization"
-            placeholder=" "
-            type="text"
-            name="company"
-            value={Phoenix.HTML.Form.normalize_value("text", f[:company].value)}
-            class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
-          />
-          <label
-            for="inquiry[company]"
-            class="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
-          >
-            Company
-          </label>
-        </div>
-        <div class="group relative z-0 transition-all focus-within:z-10">
-          <input
-            id="inquiry[phone]"
-            autocomplete="tel"
-            placeholder=" "
-            type="tel"
-            name="phone"
-            value={Phoenix.HTML.Form.normalize_value("tel", f[:phone].value)}
-            class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
-          />
-          <label
-            for="inquiry[phone]"
-            class="pointer-events-none absolute left-6 top-1/2 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
-          >
-            Phone
-          </label>
-        </div>
-        <div class="group relative z-0 transition-all focus-within:z-10 scroll-pt-11 snap-y ">
-          <textarea
-            id="inquiry[message]"
-            autocomplete="off"
-            placeholder=" "
-            name="message"
-            value={Phoenix.HTML.Form.normalize_value("textarea", f[:message].value)}
-            required
-            rows="10"
-            class="peer block w-full border border-neutral-300 bg-transparent px-6 pb-4 pt-12 text-base/6 text-neutral-950 ring-4 ring-transparent transition focus:border-neutral-950 focus:outline-none focus:ring-neutral-950/5 group-first:rounded-t-2xl group-last:rounded-b-2xl"
-          />
-          <label
-            for="inquiry[message]"
-            class="pointer-events-none absolute left-6 top-11 -mt-3 origin-left text-base/6 text-neutral-500 transition-all duration-200 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:font-semibold peer-focus:text-neutral-950 peer-[:not(:placeholder-shown)]:-translate-y-4 peer-[:not(:placeholder-shown)]:scale-75 peer-[:not(:placeholder-shown)]:font-semibold peer-[:not(:placeholder-shown)]:text-neutral-950"
-          >
-            Message
-          </label>
-        </div>
-        <div class="border border-neutral-300 px-6 py-8 first:rounded-t-2xl last:rounded-b-2xl">
-          <fieldset>
-            <legend class="text-base/6 text-neutral-500">
-              Budget
-            </legend>
-            <div class="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
-              <div class="flex gap-x-3">
-                <input
-                  type="radio"
-                  value="25"
-                  name="budget"
-                  class="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-none checked:border-[0.5rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                />
-                <label class="text-base/6 text-neutral-950">
-                  $25K – $50K
-                </label>
-              </div>
-              <div class="flex gap-x-3">
-                <input
-                  type="radio"
-                  value="50"
-                  name="budget"
-                  class="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-none checked:border-[0.5rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                />
-                <label class="text-base/6 text-neutral-950">
-                  $50K – $100K
-                </label>
-              </div>
-              <div class="flex gap-x-3">
-                <input
-                  type="radio"
-                  value="100"
-                  name="budget"
-                  class="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-none checked:border-[0.5rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                />
-                <label class="text-base/6 text-neutral-950">
-                  $100K – $150K
-                </label>
-              </div>
-              <div class="flex gap-x-3">
-                <input
-                  type="radio"
-                  value="150"
-                  name="budget"
-                  class="h-6 w-6 flex-none appearance-none rounded-full border border-neutral-950/20 outline-none checked:border-[0.5rem] checked:border-neutral-950 focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-2"
-                />
-                <label class="text-base/6 text-neutral-950">
-                  More than $150K
-                </label>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-      </div>-->
       <button class="mt-10 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition bg-neutral-950 text-white hover:bg-neutral-800">
         Submit inquiry
       </button>
