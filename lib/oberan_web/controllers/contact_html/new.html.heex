@@ -22,6 +22,7 @@
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_name"
+              data-testid="inquiry_name_input"
               placeholder="John Doe"
               autocomplete="name"
               type="text"
@@ -29,7 +30,7 @@
               value={Phoenix.HTML.Form.normalize_value("text", f[:name].value)}
               aria-required="true"
               aria-invalid={"#{f[:name].errors != []}"}
-              aria-describedby="inquiry_name_errors"
+              aria-describedby="inquiry_name_error"
               class={[
                 "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
                 if f[:name].errors != [] do
@@ -46,7 +47,7 @@
             <% end %>
           </div>
           <%= if f[:name].errors != [] do %>
-            <div id="inquiry_name_errors">
+            <div id="inquiry_name_error" data-testid="inquiry_name_error">
               <%= for error <- f[:name].errors do %>
                 <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                   <%= translate_error(error) %>
@@ -62,6 +63,7 @@
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_email"
+              data-testid="inquiry_email_input"
               placeholder="john.doe@company.com"
               autocomplete="email"
               type="email"
@@ -86,7 +88,7 @@
             <% end %>
           </div>
           <%= if f[:email].errors != [] do %>
-            <div id="inquiry_email_error">
+            <div id="inquiry_email_error" data-testid="inquiry_email_error">
               <%= for error <- f[:email].errors do %>
                 <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                   <%= translate_error(error) %>
@@ -103,6 +105,7 @@
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_company"
+              data-testid="inquiry_company_input"
               placeholder="Uptown Dynamics, Inc."
               autocomplete="organization"
               type="text"
@@ -126,7 +129,7 @@
             <% end %>
           </div>
           <%= if f[:company].errors != [] do %>
-            <div id="inquiry_company_error">
+            <div id="inquiry_company_error" data-testid="inquiry_company_error">
               <%= for error <- f[:company].errors do %>
                 <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                   <%= translate_error(error) %>
@@ -143,6 +146,7 @@
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_phone"
+              data-testid="inquiry_phone_input"
               placeholder="+1 303-555-0101"
               autocomplete="tel"
               type="tel"
@@ -166,7 +170,7 @@
             <% end %>
           </div>
           <%= if f[:phone].errors != [] do %>
-            <div id="inquiry_phone_error">
+            <div id="inquiry_phone_error" data-testid="inquiry_phone_error">
               <%= for error <- f[:phone].errors do %>
                 <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                   <%= translate_error(error) %>
@@ -182,6 +186,7 @@
           <div class="relative mt-2 rounded-md">
             <textarea
               id="inquiry_message"
+              data-testid="inquiry_message_input"
               placeholder="Tell us a little about your project..."
               autocomplete="off"
               name="message"
@@ -206,7 +211,7 @@
             <% end %>
           </div>
           <%= if f[:message].errors != [] do %>
-            <div id="inquiry_message_error">
+            <div id="inquiry_message_error" data-testid="inquiry_message_error">
               <%= for error <- f[:message].errors do %>
                 <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                   <%= translate_error(error) %>
@@ -225,6 +230,7 @@
               <div class="flex items-center">
                 <input
                   id="budget_25"
+                  data-testid="budget_25_input"
                   name="budget"
                   type="radio"
                   value="25"
@@ -241,6 +247,7 @@
               <div class="flex items-center">
                 <input
                   id="budget_50"
+                  data-testid="budget_50_input"
                   name="budget"
                   type="radio"
                   value="50"
@@ -257,6 +264,7 @@
               <div class="flex items-center">
                 <input
                   id="budget_100"
+                  data-testid="budget_100_input"
                   name="budget"
                   type="radio"
                   value="100"
@@ -273,6 +281,7 @@
               <div class="flex items-center">
                 <input
                   id="budget_150"
+                  data-testid="budget_150_input"
                   name="budget"
                   type="radio"
                   value="150"
@@ -289,7 +298,7 @@
             </div>
           </fieldset>
           <%= if f[:budget].errors != [] do %>
-            <div id="inquiry_budget_error">
+            <div id="inquiry_budget_error" data-testid="inquiry_budget_error">
               <%= for error <- f[:budget].errors do %>
                 <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
                   <%= translate_error(error) %>
@@ -301,12 +310,16 @@
       </div>
       <input
         id="inquiry_honeypot"
+        data-testid="inquiry_honeypot_input"
         name="honeypot"
         hidden
         autocomplete="off"
         value={Phoenix.HTML.Form.normalize_value("text", f[:honeypot].value)}
       />
-      <button class="mt-10 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition bg-neutral-950 text-white hover:bg-neutral-800">
+      <button
+        data-testid="send_inquiry_button"
+        class="mt-10 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition bg-neutral-950 text-white hover:bg-neutral-800"
+      >
         Send Inquiry
       </button>
     </.form>
