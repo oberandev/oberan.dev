@@ -6,6 +6,19 @@ test("has title", async ({ page }) => {
   await expect(page).toHaveTitle("Welcome · Oberan");
 });
 
+test("display all required fields", async ({ page }) => {
+  await page.goto("/contact");
+
+  await page.getByRole("button", { name: "Send Inquiry" }).click();
+
+  await expect(page.getByTestId("inquiry_name_error")).toHaveText("can't be blank");
+  await expect(page.getByTestId("inquiry_email_error")).toHaveText("can't be blank");
+  await expect(page.getByTestId("inquiry_company_error")).not.toBeInViewport();
+  await expect(page.getByTestId("inquiry_phone_error")).not.toBeInViewport();
+  await expect(page.getByTestId("inquiry_message_error")).toHaveText("can't be blank");
+  await expect(page.getByTestId("inquiry_budget_error")).toHaveText("can't be blank");
+});
+
 test("successfully submit inquiry", async ({ page }) => {
   await page.goto("/contact");
 
@@ -25,15 +38,19 @@ test("successfully submit inquiry", async ({ page }) => {
   );
 });
 
-test("display all required fields", async ({ page }) => {
+test("block bots from submission", async ({ page }) => {
   await page.goto("/contact");
 
-  await page.getByRole("button", { name: "Send Inquiry" }).click();
+  await expect(page).toHaveTitle("Contact · Oberan");
 
-  await expect(page.getByTestId("inquiry_name_error")).toHaveText("can't be blank");
-  await expect(page.getByTestId("inquiry_email_error")).toHaveText("can't be blank");
-  await expect(page.getByTestId("inquiry_company_error")).not.toBeInViewport();
-  await expect(page.getByTestId("inquiry_phone_error")).not.toBeInViewport();
-  await expect(page.getByTestId("inquiry_message_error")).toHaveText("can't be blank");
-  await expect(page.getByTestId("inquiry_budget_error")).toHaveText("can't be blank");
+  await page.getByTestId("inquiry_name_input").fill("John Doe");
+  await page.getByTestId("inquiry_email_input").fill("john.doe@company.com");
+  await page.getByTestId("inquiry_message_input").fill("asdfasdfasdfasdfasdfasdf");
+  await page.getByTestId("budget_50_input").check();
+  await page.evaluate(
+    "document.getElementById('inquiry_honeypot').setAttribute('value', 'knock knock')",
+  );
+  await page.getByTestId("send_inquiry_button").click();
+
+  await expect(page).toHaveURL("/contact");
 });

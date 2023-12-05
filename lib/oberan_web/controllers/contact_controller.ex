@@ -16,6 +16,17 @@ defmodule OberanWeb.ContactController do
     |> render(:new)
   end
 
+  def create(conn, %{"honeypot" => honeypot}) when honeypot !== "" do
+    changeset =
+      %Inquiry{}
+      |> Inquiry.changeset()
+
+    conn
+      |> assign(:page_title, "Contact")
+      |> assign(:changeset, changeset)
+      |> render(:new)
+  end
+
   def create(conn, inquiry_params) do
     changeset =
       %Inquiry{}
