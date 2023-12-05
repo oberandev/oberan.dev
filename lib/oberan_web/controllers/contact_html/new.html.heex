@@ -27,6 +27,7 @@
               type="text"
               name="name"
               value={Phoenix.HTML.Form.normalize_value("text", f[:name].value)}
+              aria-required="true"
               aria-invalid={"#{f[:name].errors != []}"}
               aria-describedby="inquiry_name_errors"
               class={[
@@ -38,20 +39,21 @@
                 end
               ]}
             />
-            <div
-              :if={@changeset.action == :insert && f[:name].errors != []}
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500"
-            >
-              <.icon name="hero-exclamation-circle-mini" />
-            </div>
-          </div>
-          <div :if={f[:name].errors != []} id="inquiry_name_errors">
-            <%= for error <- f[:name].errors do %>
-              <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
-                <%= translate_error(error) %>
-              </span>
+            <%= if @changeset.action == :insert && f[:name].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
             <% end %>
           </div>
+          <%= if f[:name].errors != [] do %>
+            <div id="inquiry_name_errors">
+              <%= for error <- f[:name].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
         </div>
         <div>
           <label for="inquiry_email" class="block text-sm font-medium leading-6 text-gray-900">
@@ -65,6 +67,7 @@
               type="email"
               name="email"
               value={Phoenix.HTML.Form.normalize_value("email", f[:email].value)}
+              aria-required="true"
               aria-invalid={"#{f[:email].errors != []}"}
               aria-describedby="inquiry_email_error"
               class={[
@@ -76,20 +79,21 @@
                 end
               ]}
             />
-            <div
-              :if={@changeset.action == :insert && f[:email].errors != []}
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500"
-            >
-              <.icon name="hero-exclamation-circle-mini" />
-            </div>
-          </div>
-          <div :if={f[:email].errors != []}>
-            <%= for error <- f[:email].errors do %>
-              <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
-                <%= translate_error(error) %>
-              </span>
+            <%= if @changeset.action == :insert && f[:email].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
             <% end %>
           </div>
+          <%= if f[:email].errors != [] do %>
+            <div id="inquiry_email_error">
+              <%= for error <- f[:email].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
         </div>
         <div>
           <div class="flex items-center text-sm font-medium leading-6">
@@ -99,7 +103,7 @@
           <div class="relative mt-2 rounded-md">
             <input
               id="inquiry_company"
-              placeholder="Uptown Dynamics"
+              placeholder="Uptown Dynamics, Inc."
               autocomplete="organization"
               type="text"
               name="company"
@@ -115,20 +119,21 @@
                 end
               ]}
             />
-            <div
-              :if={@changeset.action == :insert && f[:company].errors != []}
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500"
-            >
-              <.icon name="hero-exclamation-circle-mini" />
-            </div>
-          </div>
-          <div :if={f[:company].errors != []}>
-            <%= for error <- f[:company].errors do %>
-              <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
-                <%= translate_error(error) %>
-              </span>
+            <%= if @changeset.action == :insert && f[:company].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
             <% end %>
           </div>
+          <%= if f[:company].errors != [] do %>
+            <div id="inquiry_company_error">
+              <%= for error <- f[:company].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
         </div>
         <div>
           <div class="flex items-center text-sm font-medium leading-6">
@@ -154,20 +159,21 @@
                 end
               ]}
             />
-            <div
-              :if={@changeset.action == :insert && f[:phone].errors != []}
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500"
-            >
-              <.icon name="hero-exclamation-circle-mini" />
-            </div>
-          </div>
-          <div :if={f[:phone].errors != []}>
-            <%= for error <- f[:phone].errors do %>
-              <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
-                <%= translate_error(error) %>
-              </span>
+            <%= if @changeset.action == :insert && f[:phone].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
             <% end %>
           </div>
+          <%= if f[:phone].errors != [] do %>
+            <div id="inquiry_phone_error">
+              <%= for error <- f[:phone].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
         </div>
         <div>
           <label for="inquiry_message" class="block text-sm font-medium leading-6 text-gray-900">
@@ -181,6 +187,7 @@
               name="message"
               rows="5"
               value={Phoenix.HTML.Form.normalize_value("textarea", f[:message].value)}
+              aria-required="true"
               aria-invalid={"#{f[:message].errors != []}"}
               aria-describedby="inquiry_message_error"
               class={[
@@ -192,23 +199,24 @@
                 end
               ]}
             />
-            <div
-              :if={@changeset.action == :insert && f[:message].errors != []}
-              class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500"
-            >
-              <.icon name="hero-exclamation-circle-mini" />
-            </div>
-          </div>
-          <div :if={f[:message].errors != []} id="inquiry_message_error">
-            <%= for error <- f[:message].errors do %>
-              <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
-                <%= translate_error(error) %>
-              </span>
+            <%= if @changeset.action == :insert && f[:message].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
             <% end %>
           </div>
+          <%= if f[:message].errors != [] do %>
+            <div id="inquiry_message_error">
+              <%= for error <- f[:message].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
         </div>
         <div>
-          <label class="text-base font-semibold text-gray-900">
+          <label class="block text-sm font-medium leading-6 text-gray-900">
             Budget
           </label>
           <fieldset class="mt-4">
@@ -280,16 +288,24 @@
               </div>
             </div>
           </fieldset>
-          <div :if={f[:budget].errors != []} id="inquiry_budget_error">
-            <%= for error <- f[:budget].errors do %>
-              <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
-                <%= translate_error(error) %>
-              </span>
-            <% end %>
-          </div>
+          <%= if f[:budget].errors != [] do %>
+            <div id="inquiry_budget_error">
+              <%= for error <- f[:budget].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
-      <input id="honeypot" name="honeypot" hidden autocomplete="off" />
+      <input
+        id="inquiry_honeypot"
+        name="honeypot"
+        hidden
+        autocomplete="off"
+        value={Phoenix.HTML.Form.normalize_value("text", f[:honeypot].value)}
+      />
       <button class="mt-10 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition bg-neutral-950 text-white hover:bg-neutral-800">
         Send Inquiry
       </button>

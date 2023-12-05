@@ -27,7 +27,7 @@ defmodule Obearn.InquiryEmail do
     |> from({"Oberan", "noreply@oberan.dev"})
     |> subject("Thank You")
     |> text_body(
-      "We have received your inquriy and will be in touch shortly.\n\nCheers,\nThe Oberan team"
+      "We have received your inquriy and will be in touch shortly.\n\nAll the best,\n— The crew at Oberan"
     )
   end
 end

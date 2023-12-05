@@ -8,7 +8,7 @@ defmodule OberanWeb.ContactController do
   def new(conn, _params) do
     changeset =
       %Inquiry{}
-      |> Oberan.Inquiry.changeset()
+      |> Inquiry.changeset()
 
     conn
     |> assign(:page_title, "Contact")
@@ -19,7 +19,7 @@ defmodule OberanWeb.ContactController do
   def create(conn, inquiry_params) do
     changeset =
       %Inquiry{}
-      |> Oberan.Inquiry.changeset(inquiry_params)
+      |> Inquiry.changeset(inquiry_params)
       |> Map.put(:action, :insert)
 
     if changeset.valid? do
@@ -30,10 +30,11 @@ defmodule OberanWeb.ContactController do
       |> Mailer.deliver()
 
       conn
-      |> put_flash(:info, "Inquiry sent successfully.")
+      |> put_flash(:info, "Thank you! Your inquiry has been sent successfully.")
       |> redirect(to: ~p"/")
     else
       conn
+      |> assign(:page_title, "Contact")
       |> assign(:changeset, changeset)
       |> render(:new)
     end
