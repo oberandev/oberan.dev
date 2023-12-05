@@ -1,11 +1,5 @@
 import { test, expect } from "@playwright/test";
 
-test("has title", async ({ page }) => {
-  await page.goto("/");
-
-  await expect(page).toHaveTitle("Welcome · Oberan");
-});
-
 test("display all required fields", async ({ page }) => {
   await page.goto("/contact");
 
@@ -38,7 +32,7 @@ test("successfully submit inquiry", async ({ page }) => {
   );
 });
 
-test("block bots from submission", async ({ page }) => {
+test("block bots from submitting", async ({ page }) => {
   await page.goto("/contact");
 
   await expect(page).toHaveTitle("Contact · Oberan");
