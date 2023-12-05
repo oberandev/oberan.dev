@@ -22,9 +22,9 @@ defmodule OberanWeb.ContactController do
       |> Inquiry.changeset()
 
     conn
-      |> assign(:page_title, "Contact")
-      |> assign(:changeset, changeset)
-      |> render(:new)
+    |> assign(:page_title, "Contact")
+    |> assign(:changeset, changeset)
+    |> render(:new)
   end
 
   def create(conn, inquiry_params) do
