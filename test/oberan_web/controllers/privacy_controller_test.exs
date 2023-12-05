@@ -4,6 +4,9 @@ defmodule OberanWeb.PrivacyControllerTest do
   test "GET /privacy", %{conn: conn} do
     conn = get(conn, ~p"/privacy")
 
-    assert html_response(conn, 200) =~ "Privacy"
+    response = html_response(conn, 200)
+
+    assert response =~ "Privacy Notice"
+    assert response =~ ~p"/privacy#toc"
   end
 end

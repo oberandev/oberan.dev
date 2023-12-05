@@ -1,0 +1,327 @@
+<div class="mt-32 mx-6 lg:mx-36">
+  <h1>
+    <span class="block font-display text-base font-semibold text-neutral-950">
+      Contact Us
+    </span>
+    <span class="sr-only"> - </span>
+    <span class="mt-6 block max-w-5xl font-display text-5xl sm:text-6xl font-medium tracking-tight text-neutral-950 [text-wrap:balance]">
+      Let's Work Together
+    </span>
+  </h1>
+
+  <div class="mt-24 w-full md:w-1/2">
+    <.form :let={f} for={@changeset} as={:inquiry} action={~p"/contact"} novalidate="novalidate">
+      <h2 class="font-display text-base font-semibold text-neutral-950">
+        Work Inquiries
+      </h2>
+      <div class="mt-6 space-y-6">
+        <div>
+          <label for="inquiry_name" class="block text-sm font-medium leading-6 text-gray-900">
+            Name
+          </label>
+          <div class="relative mt-2 rounded-md">
+            <input
+              id="inquiry_name"
+              data-testid="inquiry_name_input"
+              placeholder="John Doe"
+              autocomplete="name"
+              type="text"
+              name="name"
+              value={Phoenix.HTML.Form.normalize_value("text", f[:name].value)}
+              aria-required="true"
+              aria-invalid={"#{f[:name].errors != []}"}
+              aria-describedby="inquiry_name_error"
+              class={[
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                if f[:name].errors != [] do
+                  "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
+                else
+                  "text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+                end
+              ]}
+            />
+            <%= if @changeset.action == :insert && f[:name].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
+            <% end %>
+          </div>
+          <%= if f[:name].errors != [] do %>
+            <div id="inquiry_name_error" data-testid="inquiry_name_error">
+              <%= for error <- f[:name].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div>
+          <label for="inquiry_email" class="block text-sm font-medium leading-6 text-gray-900">
+            Email
+          </label>
+          <div class="relative mt-2 rounded-md">
+            <input
+              id="inquiry_email"
+              data-testid="inquiry_email_input"
+              placeholder="john.doe@company.com"
+              autocomplete="email"
+              type="email"
+              name="email"
+              value={Phoenix.HTML.Form.normalize_value("email", f[:email].value)}
+              aria-required="true"
+              aria-invalid={"#{f[:email].errors != []}"}
+              aria-describedby="inquiry_email_error"
+              class={[
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                if f[:email].errors != [] do
+                  "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
+                else
+                  "text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+                end
+              ]}
+            />
+            <%= if @changeset.action == :insert && f[:email].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
+            <% end %>
+          </div>
+          <%= if f[:email].errors != [] do %>
+            <div id="inquiry_email_error" data-testid="inquiry_email_error">
+              <%= for error <- f[:email].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div>
+          <div class="flex items-center text-sm font-medium leading-6">
+            <label for="inquiry_company" class="block text-gray-900">Company</label>
+            <span class="text-gray-400 pl-1.5">(optional)</span>
+          </div>
+          <div class="relative mt-2 rounded-md">
+            <input
+              id="inquiry_company"
+              data-testid="inquiry_company_input"
+              placeholder="Uptown Dynamics, Inc."
+              autocomplete="organization"
+              type="text"
+              name="company"
+              value={Phoenix.HTML.Form.normalize_value("text", f[:company].value)}
+              aria-invalid={"#{f[:company].errors != []}"}
+              aria-describedby="inquiry_company_error"
+              class={[
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                if f[:company].errors != [] do
+                  "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
+                else
+                  "text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+                end
+              ]}
+            />
+            <%= if @changeset.action == :insert && f[:company].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
+            <% end %>
+          </div>
+          <%= if f[:company].errors != [] do %>
+            <div id="inquiry_company_error" data-testid="inquiry_company_error">
+              <%= for error <- f[:company].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div>
+          <div class="flex items-center text-sm font-medium leading-6">
+            <label for="inquiry_phone" class="block text-gray-900">Phone</label>
+            <span class="text-gray-400 pl-1.5">(optional)</span>
+          </div>
+          <div class="relative mt-2 rounded-md">
+            <input
+              id="inquiry_phone"
+              data-testid="inquiry_phone_input"
+              placeholder="+1 303-555-0101"
+              autocomplete="tel"
+              type="tel"
+              name="phone"
+              value={Phoenix.HTML.Form.normalize_value("tel", f[:phone].value)}
+              aria-invalid={"#{f[:phone].errors != []}"}
+              aria-describedby="inquiry_phone_error"
+              class={[
+                "block w-full rounded-md border-0 py-2 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                if f[:phone].errors != [] do
+                  "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
+                else
+                  "text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+                end
+              ]}
+            />
+            <%= if @changeset.action == :insert && f[:phone].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
+            <% end %>
+          </div>
+          <%= if f[:phone].errors != [] do %>
+            <div id="inquiry_phone_error" data-testid="inquiry_phone_error">
+              <%= for error <- f[:phone].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div>
+          <label for="inquiry_message" class="block text-sm font-medium leading-6 text-gray-900">
+            Message
+          </label>
+          <div class="relative mt-2 rounded-md">
+            <textarea
+              id="inquiry_message"
+              data-testid="inquiry_message_input"
+              placeholder="Tell us a little about your project..."
+              autocomplete="off"
+              name="message"
+              rows="5"
+              value={Phoenix.HTML.Form.normalize_value("textarea", f[:message].value)}
+              aria-required="true"
+              aria-invalid={"#{f[:message].errors != []}"}
+              aria-describedby="inquiry_message_error"
+              class={[
+                "block w-full rounded-md border-0 py-1.5 ring-1 ring-inset focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6",
+                if f[:message].errors != [] do
+                  "text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500"
+                else
+                  "text-gray-900 ring-gray-300 placeholder:text-gray-400 focus:ring-indigo-600"
+                end
+              ]}
+            />
+            <%= if @changeset.action == :insert && f[:message].errors != [] do %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-rose-500">
+                <.icon name="hero-exclamation-circle-mini" />
+              </div>
+            <% end %>
+          </div>
+          <%= if f[:message].errors != [] do %>
+            <div id="inquiry_message_error" data-testid="inquiry_message_error">
+              <%= for error <- f[:message].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div>
+          <label class="block text-sm font-medium leading-6 text-gray-900">
+            Budget
+          </label>
+          <fieldset class="mt-4">
+            <legend class="sr-only">Budget</legend>
+            <div class="space-y-4">
+              <div class="flex items-center">
+                <input
+                  id="budget_25"
+                  data-testid="budget_25_input"
+                  name="budget"
+                  type="radio"
+                  value="25"
+                  checked={f[:budget].value == "25"}
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                />
+                <label
+                  for="budget_25"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
+                >
+                  $25K – $50K
+                </label>
+              </div>
+              <div class="flex items-center">
+                <input
+                  id="budget_50"
+                  data-testid="budget_50_input"
+                  name="budget"
+                  type="radio"
+                  value="50"
+                  checked={f[:budget].value == "50"}
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                />
+                <label
+                  for="budget_50"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
+                >
+                  $50K – $100K
+                </label>
+              </div>
+              <div class="flex items-center">
+                <input
+                  id="budget_100"
+                  data-testid="budget_100_input"
+                  name="budget"
+                  type="radio"
+                  value="100"
+                  checked={f[:budget].value == "100"}
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                />
+                <label
+                  for="budget_100"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
+                >
+                  $100K – $150K
+                </label>
+              </div>
+              <div class="flex items-center">
+                <input
+                  id="budget_150"
+                  data-testid="budget_150_input"
+                  name="budget"
+                  type="radio"
+                  value="150"
+                  checked={f[:budget].value == "150"}
+                  class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                />
+                <label
+                  for="budget_150"
+                  class="ml-3 block text-sm font-medium leading-6 text-neutral-950"
+                >
+                  More than $150K
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <%= if f[:budget].errors != [] do %>
+            <div id="inquiry_budget_error" data-testid="inquiry_budget_error">
+              <%= for error <- f[:budget].errors do %>
+                <span class="mt-2 text-sm text-red-600 phx-no-feedback:hidden">
+                  <%= translate_error(error) %>
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <input
+        id="inquiry_honeypot"
+        data-testid="inquiry_honeypot_input"
+        name="honeypot"
+        hidden
+        autocomplete="off"
+        value={Phoenix.HTML.Form.normalize_value("text", f[:honeypot].value)}
+      />
+      <button
+        data-testid="send_inquiry_button"
+        class="mt-10 inline-flex rounded-full px-4 py-1.5 text-sm font-semibold transition bg-neutral-950 text-white hover:bg-neutral-800"
+      >
+        Send Inquiry
+      </button>
+    </.form>
+  </div>
+</div>
