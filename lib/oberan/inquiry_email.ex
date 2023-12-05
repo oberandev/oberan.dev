@@ -4,8 +4,8 @@ defmodule Obearn.InquiryEmail do
   def internal(form) do
     new()
     |> to({"Oberan", "hello@oberan.dev"})
-    |> from({"Oberan", "noreply@oberan.dev"})
-    |> subject("Inquiry")
+    |> from({"Oberan", "hello@oberan.dev"})
+    |> subject("New Inquiry!")
     |> text_body("""
     Name: #{Map.get(form, "name")}\n
     Email: #{Map.get(form, "email")}\n
@@ -24,10 +24,12 @@ defmodule Obearn.InquiryEmail do
   def thank_you(form) do
     new()
     |> to({Map.get(form, "name"), Map.get(form, "email")})
-    |> from({"Oberan", "noreply@oberan.dev"})
+    |> from({"Oberan", "hello@oberan.dev"})
     |> subject("Thank You")
-    |> text_body(
-      "We have received your inquriy and will be in touch shortly.\n\nAll the best,\n— The crew at Oberan"
-    )
+    |> text_body("""
+    👋 Hello/Hola/Bonjour/Hallo,\n\n
+    We have received your inquriy and will be in touch shortly.\n\n
+    All the best,\n— The crew at Oberan"
+    """)
   end
 end
