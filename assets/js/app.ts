@@ -23,7 +23,9 @@ import anime from "animejs/lib/anime.es";
 import * as Ap from "fp-ts/Apply";
 import { pipe } from "fp-ts/function";
 import * as O from "fp-ts/Option";
+// @ts-ignore
 import { Socket } from "phoenix";
+// @ts-ignore
 import { LiveSocket } from "phoenix_live_view";
 
 import topbar from "../vendor/topbar"; // eslint-disable-line import/no-relative-parent-imports
@@ -47,7 +49,11 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+const csrfToken: string | null = pipe(
+  O.fromNullable(document.querySelector("meta[name='csrf-token']")),
+  O.map((el) => el.getAttribute("content")),
+  O.getOrElseW(() => null),
+);
 const liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken } });
 
 // Show progress bar on live navigation and form submits
@@ -62,19 +68,17 @@ liveSocket.connect();
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
+// @ts-ignore
 window.liveSocket = liveSocket;
 
 if (!window.matchMedia("prefers-reduced-motion").matches) {
   pipe(
-    O.fromNullable(document.getElementById("geo_frac_lg")),
-    O.chain((svg) => {
-      return Ap.sequenceT(O.Apply)(
-        O.fromNullable(svg.getElementById("path6")),
-        O.fromNullable(svg.getElementById("path24")),
-        O.fromNullable(svg.getElementById("path26")),
-        O.fromNullable(svg.getElementById("path33")),
-      );
-    }),
+    Ap.sequenceT(O.Apply)(
+      O.fromNullable(document.getElementById("path6")),
+      O.fromNullable(document.getElementById("path24")),
+      O.fromNullable(document.getElementById("path26")),
+      O.fromNullable(document.getElementById("path33")),
+    ),
     O.map(([path6, path24, path26, path33]) => {
       anime({
         targets: path6,
