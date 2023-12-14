@@ -118,3 +118,52 @@ if (!window.matchMedia("prefers-reduced-motion").matches) {
     }),
   );
 }
+
+pipe(
+  O.fromNullable(document.getElementById("nav_btn_open")),
+  O.map((el) => {
+    el.addEventListener("click", (_event) => {
+      const overlay = document.getElementById("nav_overlay");
+
+      const isExpanded = overlay?.getAttribute("aria-expanded");
+
+      if (isExpanded === "false") {
+        // console.log("OPEN!");
+        overlay?.setAttribute("aria-expanded", "true");
+
+        document.getElementById("logo_container")?.setAttribute("inert", "");
+        // need to prevent window scroll UNDER nav overlay
+
+        anime({
+          targets: overlay,
+          translateX: [0, window.innerWidth * -1],
+          easing: "cubicBezier(0.65, 0, 0.35, 1)",
+        });
+      }
+    });
+  }),
+);
+
+pipe(
+  O.fromNullable(document.getElementById("nav_btn_close")),
+  O.map((el) => {
+    el.addEventListener("click", (_event) => {
+      const overlay = document.getElementById("nav_overlay");
+
+      const isExpanded = overlay?.getAttribute("aria-expanded");
+
+      if (isExpanded === "true") {
+        // console.log("CLOSE!");
+        overlay?.setAttribute("aria-expanded", "false");
+
+        document.getElementById("logo_container")?.removeAttribute("inert");
+
+        anime({
+          targets: overlay,
+          translateX: [window.innerWidth * -1, 0],
+          easing: "cubicBezier(0.65, 0, 0.35, 1)",
+        });
+      }
+    });
+  }),
+);
