@@ -32,7 +32,7 @@ config :oberan, Oberan.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.19.8",
+  version: "0.19.9",
   default: [
     args:
       ~w(js/app.ts --bundle --target=esnext --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
@@ -42,7 +42,7 @@ config :esbuild,
 
 # Configure tailwind (the version is required)
 config :tailwind,
-  version: "3.3.6",
+  version: "3.3.7",
   default: [
     args: ~w(
       --config=tailwind.config.js

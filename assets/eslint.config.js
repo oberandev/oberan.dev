@@ -1,4 +1,5 @@
 const { FlatCompat } = require("@eslint/eslintrc");
+const tsParser = require("@typescript-eslint/parser");
 const eslintPluginImport = require("eslint-plugin-import");
 const eslintPluginPrettier = require("eslint-plugin-prettier");
 
@@ -15,6 +16,9 @@ module.exports = [
   },
   {
     files: ["**/*.{js,ts,mjs,mts}"],
+    languageOptions: {
+      parser: tsParser,
+    },
     rules: {
       "import/first": "error",
       "import/newline-after-import": "error",

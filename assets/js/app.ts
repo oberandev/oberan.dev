@@ -23,9 +23,7 @@ import anime from "animejs/lib/anime.es";
 import * as Ap from "fp-ts/Apply";
 import { pipe } from "fp-ts/function";
 import * as O from "fp-ts/Option";
-// @ts-ignore
 import { Socket } from "phoenix";
-// @ts-ignore
 import { LiveSocket } from "phoenix_live_view";
 
 import topbar from "../vendor/topbar"; // eslint-disable-line import/no-relative-parent-imports
@@ -49,7 +47,7 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-const csrfToken: string | null = pipe(
+const csrfToken = pipe(
   O.fromNullable(document.querySelector("meta[name='csrf-token']")),
   O.map((el) => el.getAttribute("content")),
   O.getOrElseW(() => null),
@@ -68,7 +66,13 @@ liveSocket.connect();
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
-// @ts-ignore
+
+declare global {
+  interface Window {
+    liveSocket: LiveSocket;
+  }
+}
+
 window.liveSocket = liveSocket;
 
 if (!window.matchMedia("prefers-reduced-motion").matches) {
@@ -120,49 +124,36 @@ if (!window.matchMedia("prefers-reduced-motion").matches) {
 }
 
 pipe(
-  O.fromNullable(document.getElementById("nav_btn_open")),
-  O.map((el) => {
-    el.addEventListener("click", (_event) => {
-      const overlay = document.getElementById("nav_overlay");
-
-      const isExpanded = overlay?.getAttribute("aria-expanded");
+  Ap.sequenceT(O.Apply)(
+    O.fromNullable(document.getElementById("nav_btn_open")),
+    O.fromNullable(document.getElementById("nav_overlay")),
+  ),
+  O.map(([btn, overlay]) => {
+    btn.addEventListener("click", (_event) => {
+      const isExpanded = overlay.getAttribute("aria-expanded");
 
       if (isExpanded === "false") {
-        // console.log("OPEN!");
-        overlay?.setAttribute("aria-expanded", "true");
-
-        document.getElementById("logo_container")?.setAttribute("inert", "");
-        // need to prevent window scroll UNDER nav overlay
-
-        anime({
-          targets: overlay,
-          translateX: [0, window.innerWidth * -1],
-          easing: "cubicBezier(0.65, 0, 0.35, 1)",
-        });
+        overlay.setAttribute("aria-expanded", "true");
+        overlay.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
       }
     });
   }),
 );
 
 pipe(
-  O.fromNullable(document.getElementById("nav_btn_close")),
-  O.map((el) => {
-    el.addEventListener("click", (_event) => {
-      const overlay = document.getElementById("nav_overlay");
-
-      const isExpanded = overlay?.getAttribute("aria-expanded");
+  Ap.sequenceT(O.Apply)(
+    O.fromNullable(document.getElementById("nav_btn_close")),
+    O.fromNullable(document.getElementById("nav_overlay")),
+  ),
+  O.map(([btn, overlay]) => {
+    btn.addEventListener("click", (_event) => {
+      const isExpanded = overlay.getAttribute("aria-expanded");
 
       if (isExpanded === "true") {
-        // console.log("CLOSE!");
-        overlay?.setAttribute("aria-expanded", "false");
-
-        document.getElementById("logo_container")?.removeAttribute("inert");
-
-        anime({
-          targets: overlay,
-          translateX: [window.innerWidth * -1, 0],
-          easing: "cubicBezier(0.65, 0, 0.35, 1)",
-        });
+        overlay.setAttribute("aria-expanded", "false");
+        overlay.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
       }
     });
   }),
