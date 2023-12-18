@@ -47,7 +47,11 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
 });
 
-const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+const csrfToken = pipe(
+  O.fromNullable(document.querySelector("meta[name='csrf-token']")),
+  O.map((el) => el.getAttribute("content")),
+  O.getOrElseW(() => null),
+);
 const liveSocket = new LiveSocket("/live", Socket, { params: { _csrf_token: csrfToken } });
 
 // Show progress bar on live navigation and form submits
@@ -62,19 +66,23 @@ liveSocket.connect();
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
+
+declare global {
+  interface Window {
+    liveSocket: LiveSocket;
+  }
+}
+
 window.liveSocket = liveSocket;
 
 if (!window.matchMedia("prefers-reduced-motion").matches) {
   pipe(
-    O.fromNullable(document.getElementById("geo_frac_lg")),
-    O.chain((svg) => {
-      return Ap.sequenceT(O.Apply)(
-        O.fromNullable(svg.getElementById("path6")),
-        O.fromNullable(svg.getElementById("path24")),
-        O.fromNullable(svg.getElementById("path26")),
-        O.fromNullable(svg.getElementById("path33")),
-      );
-    }),
+    Ap.sequenceT(O.Apply)(
+      O.fromNullable(document.getElementById("path6")),
+      O.fromNullable(document.getElementById("path24")),
+      O.fromNullable(document.getElementById("path26")),
+      O.fromNullable(document.getElementById("path33")),
+    ),
     O.map(([path6, path24, path26, path33]) => {
       anime({
         targets: path6,
@@ -114,3 +122,39 @@ if (!window.matchMedia("prefers-reduced-motion").matches) {
     }),
   );
 }
+
+pipe(
+  Ap.sequenceT(O.Apply)(
+    O.fromNullable(document.getElementById("nav_btn_open")),
+    O.fromNullable(document.getElementById("nav_overlay")),
+  ),
+  O.map(([btn, overlay]) => {
+    btn.addEventListener("click", (_event) => {
+      const isExpanded = overlay.getAttribute("aria-expanded");
+
+      if (isExpanded === "false") {
+        overlay.setAttribute("aria-expanded", "true");
+        overlay.classList.remove("hidden");
+        document.body.classList.add("overflow-hidden");
+      }
+    });
+  }),
+);
+
+pipe(
+  Ap.sequenceT(O.Apply)(
+    O.fromNullable(document.getElementById("nav_btn_close")),
+    O.fromNullable(document.getElementById("nav_overlay")),
+  ),
+  O.map(([btn, overlay]) => {
+    btn.addEventListener("click", (_event) => {
+      const isExpanded = overlay.getAttribute("aria-expanded");
+
+      if (isExpanded === "true") {
+        overlay.setAttribute("aria-expanded", "false");
+        overlay.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+      }
+    });
+  }),
+);
