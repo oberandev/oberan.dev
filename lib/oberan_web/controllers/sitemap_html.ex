@@ -9,7 +9,8 @@ defmodule OberanWeb.SitemapHTML do
     [
       ~p"/",
       ~p"/contact",
-      ~p"/privacy"
+      ~p"/privacy",
+      ~p"/work"
     ]
   end
 
