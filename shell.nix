@@ -5,7 +5,7 @@ let
   inherit (pkgs.lib) optionals;
 
   basePackages = [
-    pkgs.elixir_1_15
+    pkgs.elixir_1_16
     pkgs.elixir_ls
     pkgs.nixfmt
     pkgs.nodejs_20
